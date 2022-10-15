@@ -1,4 +1,4 @@
-package com.asp.fliptimer
+package com.yehia.fliptimer
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

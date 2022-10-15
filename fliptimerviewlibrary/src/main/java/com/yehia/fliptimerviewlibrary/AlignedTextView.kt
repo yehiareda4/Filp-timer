@@ -1,5 +1,6 @@
-package com.asp.fliptimerviewlibrary
+package com.yehia.fliptimerviewlibrary
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -8,21 +9,30 @@ import android.util.AttributeSet
 import android.util.Log
 import android.widget.TextView
 
+@SuppressLint("AppCompatCustomView")
 class AlignedTextView : TextView {
     private var alignment = ProperTextAlignment.TOP
     private val textRect = Rect()
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         attrs?.let {
-            val typedArray = context?.obtainStyledAttributes(attrs, R.styleable.AlignedTextView, defStyleAttr, 0)
+            val typedArray =
+                context?.obtainStyledAttributes(attrs, R.styleable.AlignedTextView, defStyleAttr, 0)
 
             val alignment = typedArray?.getInt(R.styleable.AlignedTextView_alignment, 0)
             if (alignment != null && alignment != 0) {
                 setAlignment(alignment)
             } else {
-                Log.e("AlignedTextView", "You did not set an alignment for an AlignedTextView. Default is top alignment.")
+                Log.e(
+                    "AlignedTextView",
+                    "You did not set an alignment for an AlignedTextView. Default is top alignment."
+                )
             }
 
             invalidate()
@@ -40,7 +50,8 @@ class AlignedTextView : TextView {
             paint.textAlign = Paint.Align.CENTER
             var drawY = 0f
             if (alignment == ProperTextAlignment.TOP) {
-                drawY = (textRect.bottom - bottom).toFloat() - ((textRect.bottom - textRect.top) / 2)
+                drawY =
+                    (textRect.bottom - bottom).toFloat() - ((textRect.bottom - textRect.top) / 2)
             } else if (alignment == ProperTextAlignment.BOTTOM) {
                 drawY = top + cHeight.toFloat() + ((textRect.bottom - textRect.top) / 2)
             }

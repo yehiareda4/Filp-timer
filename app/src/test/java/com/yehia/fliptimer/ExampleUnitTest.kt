@@ -1,4 +1,4 @@
-package com.asp.fliptimer
+package com.yehia.fliptimer
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.asp.fliptimerviewlibrary
+package com.yehia.fliptimerviewlibrary
 
 import android.content.Context
 import android.graphics.Typeface
@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.view_countdown_clock_digit.view.*
 import kotlinx.android.synthetic.main.view_simple_clock.view.*
 import java.util.concurrent.TimeUnit
 
-
 class CountDownClock : LinearLayout {
     private var countDownTimer: CountDownTimer? = null
     private var countdownListener: CountdownCallBack? = null
@@ -25,49 +24,67 @@ class CountDownClock : LinearLayout {
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         View.inflate(context, R.layout.view_simple_clock, this)
 
         attrs?.let {
-            val typedArray = context?.obtainStyledAttributes(attrs, R.styleable.CountDownClock, defStyleAttr, 0)
+            val typedArray =
+                context?.obtainStyledAttributes(attrs, R.styleable.CountDownClock, defStyleAttr, 0)
             val resetSymbol = typedArray?.getString(R.styleable.CountDownClock_resetSymbol)
             if (resetSymbol != null) {
                 setResetSymbol(resetSymbol)
             }
 
-            val digitTopDrawable = typedArray?.getDrawable(R.styleable.CountDownClock_digitTopDrawable)
+            val digitTopDrawable =
+                typedArray?.getDrawable(R.styleable.CountDownClock_digitTopDrawable)
             setDigitTopDrawable(digitTopDrawable)
-            val digitBottomDrawable = typedArray?.getDrawable(R.styleable.CountDownClock_digitBottomDrawable)
+            val digitBottomDrawable =
+                typedArray?.getDrawable(R.styleable.CountDownClock_digitBottomDrawable)
             setDigitBottomDrawable(digitBottomDrawable)
-            val digitDividerColor = typedArray?.getColor(R.styleable.CountDownClock_digitDividerColor, 0)
+            val digitDividerColor =
+                typedArray?.getColor(R.styleable.CountDownClock_digitDividerColor, 0)
             setDigitDividerColor(digitDividerColor ?: 0)
-            val digitSplitterColor = typedArray?.getColor(R.styleable.CountDownClock_digitSplitterColor, 0)
+            val digitSplitterColor =
+                typedArray?.getColor(R.styleable.CountDownClock_digitSplitterColor, 0)
             setDigitSplitterColor(digitSplitterColor ?: 0)
 
             val digitTextColor = typedArray?.getColor(R.styleable.CountDownClock_digitTextColor, 0)
             setDigitTextColor(digitTextColor ?: 0)
 
-            val digitTextSize = typedArray?.getDimension(R.styleable.CountDownClock_digitTextSize, 0f)
+            val digitTextSize =
+                typedArray?.getDimension(R.styleable.CountDownClock_digitTextSize, 0f)
             setDigitTextSize(digitTextSize ?: 0f)
             setSplitterDigitTextSize(digitTextSize ?: 0f)
 
             val digitPadding = typedArray?.getDimension(R.styleable.CountDownClock_digitPadding, 0f)
             setDigitPadding(digitPadding?.toInt() ?: 0)
 
-            val splitterPadding = typedArray?.getDimension(R.styleable.CountDownClock_splitterPadding, 0f)
+            val splitterPadding =
+                typedArray?.getDimension(R.styleable.CountDownClock_splitterPadding, 0f)
             setSplitterPadding(splitterPadding?.toInt() ?: 0)
 
-            val halfDigitHeight = typedArray?.getDimensionPixelSize(R.styleable.CountDownClock_halfDigitHeight, 0)
-            val digitWidth = typedArray?.getDimensionPixelSize(R.styleable.CountDownClock_digitWidth, 0)
+            val halfDigitHeight =
+                typedArray?.getDimensionPixelSize(R.styleable.CountDownClock_halfDigitHeight, 0)
+            val digitWidth =
+                typedArray?.getDimensionPixelSize(R.styleable.CountDownClock_digitWidth, 0)
             setHalfDigitHeightAndDigitWidth(halfDigitHeight ?: 0, digitWidth ?: 0)
 
-            val animationDuration = typedArray?.getInt(R.styleable.CountDownClock_animationDuration, 0)
+            val animationDuration =
+                typedArray?.getInt(R.styleable.CountDownClock_animationDuration, 0)
             setAnimationDuration(animationDuration ?: 600)
 
-            val almostFinishedCallbackTimeInSeconds = typedArray?.getInt(R.styleable.CountDownClock_almostFinishedCallbackTimeInSeconds, 5)
+            val almostFinishedCallbackTimeInSeconds = typedArray?.getInt(
+                R.styleable.CountDownClock_almostFinishedCallbackTimeInSeconds,
+                5
+            )
             setAlmostFinishedCallbackTimeInSeconds(almostFinishedCallbackTimeInSeconds ?: 5)
 
-            val countdownTickInterval = typedArray?.getInt(R.styleable.CountDownClock_countdownTickInterval, 1000)
+            val countdownTickInterval =
+                typedArray?.getInt(R.styleable.CountDownClock_countdownTickInterval, 1000)
             this.countdownTickInterval = countdownTickInterval ?: 1000
 
             invalidate()
@@ -122,8 +139,14 @@ class CountDownClock : LinearLayout {
 
         val days = TimeUnit.MILLISECONDS.toDays(timeToStart)
         val hours = TimeUnit.MILLISECONDS.toHours(timeToStart - TimeUnit.DAYS.toMillis(days))
-        val minutes = TimeUnit.MILLISECONDS.toMinutes(timeToStart - (TimeUnit.DAYS.toMillis(days) + TimeUnit.HOURS.toMillis(hours)))
-        val seconds = TimeUnit.MILLISECONDS.toSeconds(timeToStart - (TimeUnit.DAYS.toMillis(days) + TimeUnit.HOURS.toMillis(hours) + TimeUnit.MINUTES.toMillis(minutes)))
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(
+            timeToStart - (TimeUnit.DAYS.toMillis(days) + TimeUnit.HOURS.toMillis(hours))
+        )
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(
+            timeToStart - (TimeUnit.DAYS.toMillis(days) + TimeUnit.HOURS.toMillis(hours) + TimeUnit.MINUTES.toMillis(
+                minutes
+            ))
+        )
 
         val daysString = days.toString()
         val hoursString = hours.toString()
@@ -280,12 +303,12 @@ class CountDownClock : LinearLayout {
     private fun setDigitPadding(digitPadding: Int) {
 
         firstDigitDays.setPadding(digitPadding, digitPadding, digitPadding, digitPadding)
-        secondDigitDays.setPadding(digitPadding, digitPadding, digitPadding , digitPadding)
+        secondDigitDays.setPadding(digitPadding, digitPadding, digitPadding, digitPadding)
         firstDigitHours.setPadding(digitPadding, digitPadding, digitPadding, digitPadding)
-        secondDigitHours.setPadding(digitPadding, digitPadding, digitPadding , digitPadding)
+        secondDigitHours.setPadding(digitPadding, digitPadding, digitPadding, digitPadding)
 
         firstDigitMinute.setPadding(digitPadding, digitPadding, digitPadding, digitPadding)
-        secondDigitMinute.setPadding(digitPadding, digitPadding, digitPadding , digitPadding)
+        secondDigitMinute.setPadding(digitPadding, digitPadding, digitPadding, digitPadding)
         firstDigitSecond.setPadding(digitPadding, digitPadding, digitPadding, digitPadding)
         secondDigitSecond.setPadding(digitPadding, digitPadding, digitPadding, digitPadding)
     }
@@ -470,7 +493,7 @@ class CountDownClock : LinearLayout {
     // Listeners
     ////////////////
 
-     fun setCountdownListener(countdownListener: CountdownCallBack) {
+    fun setCountdownListener(countdownListener: CountdownCallBack) {
         this.countdownListener = countdownListener
     }
 
@@ -484,12 +507,12 @@ class CountDownClock : LinearLayout {
         countDownTimer?.cancel()
     }
 
-     fun resumeCountDownTimer() {
+    fun resumeCountDownTimer() {
         startCountDown(milliLeft)
     }
 
 
-    fun setCustomTypeface(typeface : Typeface){
+    fun setCustomTypeface(typeface: Typeface) {
         firstDigitDays.setTypeFace(typeface)
         firstDigitDays.setTypeFace(typeface)
         secondDigitDays.setTypeFace(typeface)
@@ -506,8 +529,5 @@ class CountDownClock : LinearLayout {
         firstDigitSecond.setTypeFace(typeface)
         secondDigitSecond.setTypeFace(typeface)
         secondDigitSecond.setTypeFace(typeface)
-
     }
-
-
 }

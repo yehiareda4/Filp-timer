@@ -1,4 +1,4 @@
-package com.asp.fliptimerviewlibrary;
+package com.yehia.fliptimerviewlibrary;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

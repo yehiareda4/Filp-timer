@@ -1,4 +1,4 @@
-package com.asp.fliptimerviewlibrary;
+package com.yehia.fliptimerviewlibrary;
 
 import org.junit.Test;
 

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FlipTimerViewLibrary</string>
+    <string name="Days">ايام</string>
+    <string name="Hours">ساعات</string>
+    <string name="Mins">دقائق</string>
+    <string name="Secs">ثواني</string>
+    <string name="_8">8</string>
+</resources>
